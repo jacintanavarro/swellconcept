@@ -105,7 +105,7 @@
   .hero img{ width:100%; height:clamp(300px,52vw,560px); object-fit:cover; }
 
   /* ---------- Category tiles (home) ---------- */
-  .cat-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(10px,2vw,20px); }
+  .cat-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:clamp(16px,3vw,32px); }
   .cat-tile{ position:relative; display:block; overflow:hidden; background:var(--bg-alt);}
   .cat-tile img{ width:100%; aspect-ratio:1/1; object-fit:cover; transition:transform .6s ease;}
   .cat-tile:hover img{ transform:scale(1.045); }
@@ -116,7 +116,7 @@
   }
 
   /* ---------- Feature tiles (home 2-col) ---------- */
-  .feature-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(10px,2vw,20px); }
+  .feature-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:2px; }
   .feature-tile{ position:relative; display:block; overflow:hidden; background:var(--bg-alt);}
   .feature-tile img{ width:100%; aspect-ratio:1/1; object-fit:cover; transition:transform .6s ease;}
   .feature-tile:hover img{ transform:scale(1.045); }
@@ -349,8 +349,8 @@
       desc:"Deep-seated and upholstered in espresso brushed velvet &mdash; the kind of sofa built for an afternoon where nobody, and nothing, moves for three hours. Feather-down cushions, hardwood frame.",
       measures:"220 x 95 x 85 cms"
     },
-    "phantom-table": {
-      name:"Phantom Table", category:"furniture", price:610, img:"tile_table.jpg",
+    "phantom-tables": {
+      name:"Phantom Tables", category:"furniture", price:610, img:"tile_table.jpg",
       desc:"A side table turned from solid ash and finished in high-gloss black lacquer, set on a chromed steel base that all but disappears beneath it &mdash; hence the name.",
       measures:"&Oslash; 45 x 55 cms"
     },
@@ -399,8 +399,8 @@
       desc:"Blown glass goblets on a ribbed amber stem, finished in a soft topaz tint. Sold as a pair; no two are perfectly identical.",
       measures:"Set of 2"
     },
-    "saintier-bowl": {
-      name:"Saintier Bowl", category:"objects", price:95, img:"tile_objects2.jpg",
+    "satellite-bowl": {
+      name:"Satellite Bowl", category:"objects", price:95, img:"tile_objects2.jpg",
       desc:"Spun steel, patinated to a deep blue-black, balanced on a conical foot so shallow it looks like it shouldn't stand. It does.",
       measures:"&Oslash; 34 x 9 cms"
     },
@@ -442,34 +442,30 @@
   function viewHome(){
     var featured = [
       {img:"tile_seating.jpg", tag:"Seating", slug:"moon-stool"},
-      {img:"tile_objects2.jpg", tag:"Objects", slug:"saintier-bowl"},
+      {img:"tile_objects2.jpg", tag:"Objects", slug:"satellite-bowl"},
       {img:"tile_antiques.jpg", tag:"Antiques", slug:"antique-vase-pair"},
       {img:"tile_sofas.jpg", tag:"Sofas", slug:"cozy-sofa"},
       {img:"tile_plate.jpg", tag:"Complements", slug:"meridian-candle"},
-      {img:"tile_table.jpg", tag:"Tables", slug:"phantom-table"}
+      {img:"tile_table.jpg", tag:"Tables", slug:"phantom-tables"}
     ];
     return '' +
       '<div class="hero">' +
         '<img src="assets/home_hero.jpg" alt="Swell Concept showroom &mdash; curated pieces for everyday spaces">' +
       '</div>' +
-      '<div class="wrap section">' +
-        '<div class="cat-grid">' +
-          '<a class="cat-tile" href="#/collections/furniture"><img src="assets/cat_furniture.jpg" alt="Furniture"><span>Furniture</span></a>' +
-          '<a class="cat-tile" href="#/collections/complements"><img src="assets/cat_complements.jpg" alt="Complements"><span>Complements</span></a>' +
-          '<a class="cat-tile" href="#/collections/objects"><img src="assets/cat_objects.jpg" alt="Objects"><span>Objects</span></a>' +
-        '</div>' +
+      '<div class="cat-grid">' +
+        '<a class="cat-tile" href="#/collections/furniture"><img src="assets/cat_furniture.jpg" alt="Furniture"><span>Furniture</span></a>' +
+        '<a class="cat-tile" href="#/collections/complements"><img src="assets/cat_complements.jpg" alt="Complements"><span>Complements</span></a>' +
+        '<a class="cat-tile" href="#/collections/objects"><img src="assets/cat_objects.jpg" alt="Objects"><span>Objects</span></a>' +
       '</div>' +
-      '<div class="wrap section" style="padding-top:0">' +
-        '<div class="feature-grid">' +
-          featured.map(function(f){
-            var p = PRODUCTS[f.slug];
-            return '<a class="feature-tile" href="#/product/'+f.slug+'">' +
-              '<img src="assets/'+f.img+'" alt="'+p.name+'">' +
-              '<span class="feature-tag">'+f.tag+'</span>' +
-              '<span class="feature-name">'+p.name+'<span class="plus">+</span></span>' +
-            '</a>';
-          }).join('') +
-        '</div>' +
+      '<div class="feature-grid">' +
+        featured.map(function(f){
+          var p = PRODUCTS[f.slug];
+          return '<a class="feature-tile" href="#/product/'+f.slug+'">' +
+            '<img src="assets/'+f.img+'" alt="'+p.name+'">' +
+            '<span class="feature-tag">'+f.tag+'</span>' +
+            '<span class="feature-name">'+p.name+'<span class="plus">+</span></span>' +
+          '</a>';
+        }).join('') +
       '</div>';
   }
 
