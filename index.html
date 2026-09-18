@@ -21,22 +21,6 @@
     --maxw: 1360px;
     --gutter: clamp(20px, 4vw, 64px);
   }
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){
-      --bg:#12201d; --bg-alt:#0e1917; --surface:#182823;
-      --ink:#eae7df; --ink-soft:#a9b3ae; --ink-faint:#6c7873;
-      --accent:#8fae9f; --accent-soft:#6f9082; --on-accent:#12201d;
-      --line:#28382f; --line-strong:#38493f;
-      --shadow: 0 24px 48px -28px rgba(0,0,0,0.7);
-    }
-  }
-  :root[data-theme="dark"]{
-    --bg:#12201d; --bg-alt:#0e1917; --surface:#182823;
-    --ink:#eae7df; --ink-soft:#a9b3ae; --ink-faint:#6c7873;
-    --accent:#8fae9f; --accent-soft:#6f9082; --on-accent:#12201d;
-    --line:#28382f; --line-strong:#38493f;
-    --shadow: 0 24px 48px -28px rgba(0,0,0,0.7);
-  }
 
   *{box-sizing:border-box;}
   body{
@@ -105,7 +89,7 @@
   .hero img{ width:100%; height:clamp(300px,52vw,560px); object-fit:cover; }
 
   /* ---------- Category tiles (home) ---------- */
-  .cat-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:clamp(16px,3vw,32px); }
+  .cat-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:2px; }
   .cat-tile{ position:relative; display:block; overflow:hidden; background:var(--bg-alt);}
   .cat-tile img{ width:100%; aspect-ratio:1/1; object-fit:cover; transition:transform .6s ease;}
   .cat-tile:hover img{ transform:scale(1.045); }
@@ -115,10 +99,13 @@
     background:linear-gradient(to top, rgba(10,10,6,0.55), transparent);
   }
 
-  /* ---------- Feature tiles (home 2-col) ---------- */
-  .feature-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:2px; }
-  .feature-tile{ position:relative; display:block; overflow:hidden; background:var(--bg-alt);}
-  .feature-tile img{ width:100%; aspect-ratio:1/1; object-fit:cover; transition:transform .6s ease;}
+  /* ---------- Feature tiles (home, alternating widths) ---------- */
+  .feature-grid{ display:flex; flex-direction:column; gap:2px; }
+  .feature-row{ display:grid; gap:2px; height:clamp(260px,32vw,460px); }
+  .feature-row.left-wide{ grid-template-columns:1.4fr 1fr; }
+  .feature-row.right-wide{ grid-template-columns:1fr 1.4fr; }
+  .feature-tile{ position:relative; display:block; overflow:hidden; background:var(--bg-alt); height:100%;}
+  .feature-tile img{ width:100%; height:100%; object-fit:cover; transition:transform .6s ease;}
   .feature-tile:hover img{ transform:scale(1.045); }
   .feature-tag{
     position:absolute; top:14px; left:14px; font-size:0.68rem; letter-spacing:0.16em;
@@ -242,8 +229,7 @@
     .main-nav.open{ transform:translateX(0); }
     .main-nav a{ font-size:1rem; }
     .logo{ justify-self:center; align-items:center; }
-    .cat-grid{ grid-template-columns:1fr; }
-    .feature-grid{ grid-template-columns:1fr; }
+    .feature-row{ height:clamp(160px,55vw,260px); }
     .mosaic{ grid-template-columns:repeat(2,1fr); }
     .p-grid{ grid-template-columns:1fr 1fr; gap:14px; }
     .footer-top{ grid-template-columns:1fr; padding-bottom:24px;}
@@ -458,13 +444,19 @@
         '<a class="cat-tile" href="#/collections/objects"><img src="assets/cat_objects.jpg" alt="Objects"><span>Objects</span></a>' +
       '</div>' +
       '<div class="feature-grid">' +
-        featured.map(function(f){
-          var p = PRODUCTS[f.slug];
-          return '<a class="feature-tile" href="#/product/'+f.slug+'">' +
-            '<img src="assets/'+f.img+'" alt="'+p.name+'">' +
-            '<span class="feature-tag">'+f.tag+'</span>' +
-            '<span class="feature-name">'+p.name+'<span class="plus">+</span></span>' +
-          '</a>';
+        [[0,1],[2,3],[4,5]].map(function(pair, i){
+          var rowClass = i % 2 === 0 ? 'left-wide' : 'right-wide';
+          return '<div class="feature-row ' + rowClass + '">' +
+            pair.map(function(idx){
+              var f = featured[idx];
+              var p = PRODUCTS[f.slug];
+              return '<a class="feature-tile" href="#/product/'+f.slug+'">' +
+                '<img src="assets/'+f.img+'" alt="'+p.name+'">' +
+                '<span class="feature-tag">'+f.tag+'</span>' +
+                '<span class="feature-name">'+p.name+'<span class="plus">+</span></span>' +
+              '</a>';
+            }).join('') +
+          '</div>';
         }).join('') +
       '</div>';
   }
