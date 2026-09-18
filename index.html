@@ -1,0 +1,742 @@
+<title>Swell Concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500;1,9..144,600&family=Jost:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+  :root{
+    --bg:#f6f3ec;
+    --bg-alt:#eee8da;
+    --surface:#fffdf8;
+    --ink:#26281f;
+    --ink-soft:#6f6c5c;
+    --ink-faint:#a29d8a;
+    --accent:#4c5f43;
+    --accent-soft:#7c9268;
+    --on-accent:#f6f3ec;
+    --line:#ddd6c3;
+    --line-strong:#c7bd9f;
+    --shadow: 0 24px 48px -28px rgba(38,40,31,0.45);
+    --serif: 'Ogg', 'Fraunces', 'Iowan Old Style', Georgia, serif;
+    --serif-ui: 'Century Gothic', 'Jost', 'Futura', 'Avenir Next', sans-serif;
+    --maxw: 1360px;
+    --gutter: clamp(20px, 4vw, 64px);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#1b1c16; --bg-alt:#222319; --surface:#25261d;
+      --ink:#f1eee2; --ink-soft:#b2af9d; --ink-faint:#7d7a68;
+      --accent:#9db788; --accent-soft:#7fa06c; --on-accent:#14150f;
+      --line:#3b3c2f; --line-strong:#4c4d3c;
+      --shadow: 0 24px 48px -28px rgba(0,0,0,0.7);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#1b1c16; --bg-alt:#222319; --surface:#25261d;
+    --ink:#f1eee2; --ink-soft:#b2af9d; --ink-faint:#7d7a68;
+    --accent:#9db788; --accent-soft:#7fa06c; --on-accent:#14150f;
+    --line:#3b3c2f; --line-strong:#4c4d3c;
+    --shadow: 0 24px 48px -28px rgba(0,0,0,0.7);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--serif-ui);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit; text-decoration:none;}
+  button{font-family:inherit; background:none; border:none; color:inherit; cursor:pointer;}
+  h1,h2,h3,h4{font-family:var(--serif); font-weight:500; margin:0; text-wrap:balance;}
+  img{max-width:100%; display:block;}
+  .eyebrow{
+    font-family:var(--serif-ui); font-size:0.72rem; letter-spacing:0.18em;
+    text-transform:uppercase; color:var(--ink-soft);
+  }
+
+  /* ---------- Header ---------- */
+  .site-header{
+    position:sticky; top:env(safe-area-inset-top, 0px); z-index:40;
+    background:var(--bg); border-bottom:1px solid var(--line);
+  }
+  .header-inner{
+    max-width:var(--maxw); margin:0 auto; padding:18px var(--gutter);
+    display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:16px;
+  }
+  .logo{ display:flex; flex-direction:column; line-height:1; gap:3px; justify-self:start;}
+  .logo-mark{ font-family:var(--serif); font-style:italic; font-weight:500; font-size:1.7rem; color:var(--ink);}
+  .logo-sub{ font-size:0.58rem; letter-spacing:0.32em; color:var(--ink-soft); text-transform:uppercase;}
+  .main-nav{ display:flex; gap:clamp(20px,3vw,44px); justify-self:center;}
+  .main-nav a{
+    font-size:0.82rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink);
+    padding-bottom:4px; border-bottom:1px solid transparent; white-space:nowrap;
+  }
+  .main-nav a.active, .main-nav a:hover{ border-bottom-color:var(--ink); }
+  .header-actions{ display:flex; align-items:center; gap:14px; justify-self:end; position:relative;}
+  .icon-btn{ position:relative; display:flex; padding:4px; color:var(--ink);}
+  .icon-btn svg{ width:21px; height:21px; }
+  .bag-count{
+    position:absolute; top:-4px; right:-6px; background:var(--accent); color:var(--on-accent);
+    font-size:0.62rem; font-family:var(--serif-ui); width:16px; height:16px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .hamburger{ display:none; padding:4px; }
+  .hamburger svg{ width:22px; height:22px; }
+
+  .subnav{
+    background:var(--bg); border-bottom:1px solid var(--line);
+    display:flex; gap:clamp(24px,4vw,56px); justify-content:center;
+    padding:14px var(--gutter);
+  }
+  .subnav a{ font-size:0.8rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-soft); padding-bottom:4px; border-bottom:1px solid transparent;}
+  .subnav a.active{ color:var(--ink); border-bottom-color:var(--ink);}
+
+  /* ---------- Layout helpers ---------- */
+  main{ display:block; }
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding-inline:var(--gutter); }
+  .section{ padding-block:clamp(40px,6vw,88px); }
+  .section-head{ display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:clamp(20px,3vw,36px); flex-wrap:wrap;}
+  .section-head h2{ font-size:clamp(1.5rem,2.6vw,2.1rem); }
+  .view-all{ font-size:0.78rem; letter-spacing:0.12em; text-transform:uppercase; border-bottom:1px solid var(--ink); padding-bottom:2px; }
+
+  /* ---------- Hero ---------- */
+  .hero{ position:relative; }
+  .hero img{ width:100%; height:clamp(300px,52vw,560px); object-fit:cover; }
+  .hero-caption{ max-width:var(--maxw); margin:0 auto; padding:22px var(--gutter) 0; }
+  .hero-caption h1{ font-size:clamp(1.8rem,4vw,3rem); font-style:italic; font-weight:500; max-width:16ch;}
+  .hero-caption p{ color:var(--ink-soft); margin-top:10px; max-width:46ch; font-size:1.02rem;}
+
+  /* ---------- Category tiles (home) ---------- */
+  .cat-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(10px,2vw,20px); }
+  .cat-tile{ position:relative; display:block; overflow:hidden; background:var(--bg-alt);}
+  .cat-tile img{ width:100%; aspect-ratio:1/1; object-fit:cover; transition:transform .6s ease;}
+  .cat-tile:hover img{ transform:scale(1.045); }
+  .cat-tile span{
+    position:absolute; left:0; right:0; bottom:0; padding:14px 0; text-align:center;
+    font-size:0.78rem; letter-spacing:0.18em; text-transform:uppercase; color:#fff;
+    background:linear-gradient(to top, rgba(10,10,6,0.55), transparent);
+  }
+
+  /* ---------- Feature tiles (home 2-col) ---------- */
+  .feature-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(10px,2vw,20px); }
+  .feature-tile{ position:relative; display:block; overflow:hidden; background:var(--bg-alt);}
+  .feature-tile img{ width:100%; aspect-ratio:1/1; object-fit:cover; transition:transform .6s ease;}
+  .feature-tile:hover img{ transform:scale(1.045); }
+  .feature-tag{
+    position:absolute; top:14px; left:14px; font-size:0.68rem; letter-spacing:0.16em;
+    text-transform:uppercase; color:#fff; text-shadow:0 1px 6px rgba(0,0,0,0.4);
+  }
+  .feature-name{
+    position:absolute; left:14px; bottom:14px; right:14px; display:flex; align-items:center; justify-content:space-between;
+    font-size:0.85rem; color:#fff; text-shadow:0 1px 6px rgba(0,0,0,0.4);
+  }
+  .feature-name .plus{
+    width:24px; height:24px; border:1px solid rgba(255,255,255,0.8); border-radius:50%;
+    display:flex; align-items:center; justify-content:center; font-size:1rem; flex:none;
+  }
+
+  /* ---------- Editorial mosaic (complements) ---------- */
+  .mosaic{ display:grid; grid-template-columns:repeat(3,1fr); gap:2px; background:var(--line);}
+  .mosaic a{ display:block; overflow:hidden; background:var(--bg-alt);}
+  .mosaic img{ width:100%; aspect-ratio:4/5; object-fit:cover; transition:transform .6s ease;}
+  .mosaic a:hover img{ transform:scale(1.04); }
+
+  /* ---------- Product grid ---------- */
+  .p-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(18px,2.5vw,32px); }
+  .p-card{ display:flex; flex-direction:column; gap:10px; }
+  .p-card-media{ position:relative; display:block; overflow:hidden; background:var(--surface); border:1px solid var(--line);}
+  .p-card-media img{ width:100%; aspect-ratio:4/5; object-fit:contain; padding:14px; transition:transform .5s ease;}
+  .p-card-media:hover img{ transform:scale(1.03); }
+  .p-dots{ position:absolute; bottom:10px; left:0; right:0; display:flex; justify-content:center; gap:5px; }
+  .p-dots i{ width:4px; height:4px; border-radius:50%; background:var(--ink-faint); display:block;}
+  .p-card-info{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
+  .p-card-name{ font-size:0.85rem; letter-spacing:0.03em; }
+  .p-add{
+    width:22px; height:22px; border:1px solid var(--line-strong); border-radius:50%; flex:none;
+    display:flex; align-items:center; justify-content:center; font-size:0.9rem; color:var(--ink-soft);
+    transition:background .15s, color .15s;
+  }
+  .p-add:hover{ background:var(--ink); color:var(--bg); border-color:var(--ink);}
+  .p-card-price{ font-size:0.82rem; color:var(--ink-soft); }
+
+  /* ---------- Product detail ---------- */
+  .p-detail{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:clamp(32px,6vw,80px); align-items:start; }
+  .p-gallery-main{ background:var(--surface); border:1px solid var(--line); }
+  .p-gallery-main img{ width:100%; aspect-ratio:1/1; object-fit:contain; padding:24px; }
+  .p-thumbs{ display:flex; gap:10px; margin-top:12px; }
+  .p-thumb{ width:76px; height:76px; border:1px solid var(--line); background:var(--surface); overflow:hidden; flex:none; }
+  .p-thumb.active{ border-color:var(--ink); }
+  .p-thumb img{ width:100%; height:100%; object-fit:cover; }
+  .p-detail-info h1{ font-size:clamp(1.5rem,2.6vw,2rem); letter-spacing:0.02em; text-transform:uppercase; font-style:normal;}
+  .p-price{ font-size:1.15rem; font-family:var(--serif); margin-top:10px; }
+  .p-rule{ border:none; border-top:1px solid var(--line); margin:20px 0; }
+  .p-desc{ color:var(--ink-soft); max-width:52ch; }
+  .p-meta{ margin-top:22px; }
+  .p-meta h4{ font-family:var(--serif-ui); font-size:0.78rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-soft); font-weight:500; margin-bottom:4px;}
+  .p-avail{ margin-top:24px; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;}
+  .p-avail-status{ font-size:0.9rem; color:var(--accent); display:flex; align-items:center; gap:8px;}
+  .p-avail-status::before{ content:""; width:7px; height:7px; border-radius:50%; background:var(--accent); display:inline-block;}
+  .buy-btn{
+    display:inline-flex; align-items:center; gap:10px; font-size:0.82rem; letter-spacing:0.14em;
+    text-transform:uppercase; border:1px solid var(--ink); padding:13px 26px; color:var(--ink);
+    transition:background .15s, color .15s;
+  }
+  .buy-btn:hover{ background:var(--ink); color:var(--bg); }
+  .back-link{ font-size:0.78rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-soft); display:inline-flex; gap:6px; align-items:center; margin-bottom:26px;}
+  .back-link:hover{ color:var(--ink); }
+
+  /* ---------- Limited hero ---------- */
+  .limited-hero{ position:relative; }
+  .limited-hero img{ width:100%; height:clamp(260px,44vw,480px); object-fit:cover; }
+  .limited-strip{ background:var(--accent); color:var(--on-accent); text-align:center; padding:10px; font-size:0.76rem; letter-spacing:0.16em; text-transform:uppercase;}
+
+  /* ---------- Projects / about ---------- */
+  .about-grid{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(28px,5vw,64px); align-items:center; }
+  .about-grid img{ width:100%; aspect-ratio:3/4; object-fit:cover; }
+  .about-copy p{ color:var(--ink-soft); margin-top:14px; max-width:48ch; }
+  .about-copy h2{ font-size:clamp(1.6rem,3vw,2.3rem); }
+
+  /* ---------- Footer ---------- */
+  .site-footer{ border-top:1px solid var(--line); background:var(--bg-alt); margin-top:40px; }
+  .footer-top{
+    max-width:var(--maxw); margin:0 auto; padding:56px var(--gutter) 40px;
+    display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:36px;
+  }
+  .footer-brand .logo-mark{ font-size:1.5rem; }
+  .footer-brand p{ color:var(--ink-soft); margin-top:12px; max-width:34ch; font-size:0.92rem;}
+  .footer-col h4{ font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-soft); font-weight:500; margin-bottom:12px; font-family:var(--serif-ui);}
+  .footer-col p{ font-size:0.88rem; color:var(--ink-soft); margin-bottom:8px;}
+  .footer-col a{ display:block; font-size:0.88rem; color:var(--ink-soft); margin-bottom:8px; }
+  .footer-col a:hover{ color:var(--ink); }
+  .footer-image img{ width:100%; height:clamp(160px,26vw,320px); object-fit:cover; }
+  .footer-bottom{
+    max-width:var(--maxw); margin:0 auto; padding:18px var(--gutter);
+    display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
+    font-size:0.74rem; color:var(--ink-faint); letter-spacing:0.04em;
+  }
+
+  /* ---------- Toast ---------- */
+  .toast{
+    position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(0); z-index:80;
+    background:var(--ink); color:var(--bg); font-size:0.85rem; padding:13px 22px;
+    box-shadow:var(--shadow); opacity:1; transition:opacity .25s, transform .25s;
+  }
+  .toast[hidden]{ display:flex; opacity:0; transform:translateX(-50%) translateY(8px); pointer-events:none;}
+
+  /* ---------- Bag panel ---------- */
+  .bag-scrim{ position:fixed; inset:0; background:rgba(20,20,14,0.4); z-index:60; }
+  .bag-panel{
+    position:fixed; top:0; right:0; bottom:0; width:min(380px,88vw); background:var(--bg); z-index:70;
+    box-shadow:var(--shadow); padding:24px; display:flex; flex-direction:column; gap:18px;
+    padding-top:calc(24px + env(safe-area-inset-top,0px));
+  }
+  .bag-panel-head{ display:flex; align-items:center; justify-content:space-between; }
+  .bag-panel-head h3{ font-size:1.2rem; }
+  .bag-items{ display:flex; flex-direction:column; gap:14px; overflow-y:auto; }
+  .bag-line{ display:flex; gap:12px; align-items:center; border-bottom:1px solid var(--line); padding-bottom:14px; }
+  .bag-line img{ width:56px; height:56px; object-fit:contain; background:var(--surface); border:1px solid var(--line); padding:6px; flex:none;}
+  .bag-line-name{ font-size:0.86rem; flex:1; }
+  .bag-line-price{ font-size:0.82rem; color:var(--ink-soft); }
+  .bag-remove{ font-size:1rem; color:var(--ink-faint); padding:2px 6px; }
+  .bag-empty{ color:var(--ink-soft); font-size:0.9rem; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 860px){
+    .p-grid{ grid-template-columns:repeat(2,1fr); }
+    .p-detail{ grid-template-columns:1fr; }
+    .about-grid{ grid-template-columns:1fr; }
+    .footer-top{ grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width: 640px){
+    .header-inner{ grid-template-columns:auto 1fr auto; }
+    .hamburger{ display:flex; }
+    .main-nav{
+      position:fixed; top:env(safe-area-inset-top,0px); right:0; bottom:0; left:auto;
+      background:var(--bg); flex-direction:column; padding:88px 28px 28px; gap:26px;
+      transform:translateX(100%); transition:transform .25s ease; z-index:50; width:70%;
+      box-shadow:var(--shadow);
+    }
+    .main-nav.open{ transform:translateX(0); }
+    .main-nav a{ font-size:1rem; }
+    .logo{ justify-self:center; align-items:center; }
+    .cat-grid{ grid-template-columns:1fr; }
+    .feature-grid{ grid-template-columns:1fr; }
+    .mosaic{ grid-template-columns:repeat(2,1fr); }
+    .p-grid{ grid-template-columns:1fr 1fr; gap:14px; }
+    .footer-top{ grid-template-columns:1fr; padding-bottom:24px;}
+    .subnav{ gap:22px; }
+  }
+  @media (max-width: 420px){
+    .p-grid{ grid-template-columns:1fr 1fr; }
+  }
+
+  [hidden]{ display:none !important; }
+</style>
+
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
+    </button>
+    <a href="#/" class="logo">
+      <span class="logo-mark">swell</span>
+      <span class="logo-sub">concept</span>
+    </a>
+    <nav class="main-nav" id="mainNav">
+      <a href="#/collections/furniture" data-nav="collections">Collections</a>
+      <a href="#/limited" data-nav="limited">Limited</a>
+      <a href="#/projects" data-nav="projects">Projects</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" id="bagBtn" aria-label="Open bag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M6 8h12l-1 13H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+        <span class="bag-count" id="bagCount" hidden>0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<nav class="subnav" id="subnav" hidden>
+  <a href="#/collections/furniture" data-cat="furniture">Furniture</a>
+  <a href="#/collections/complements" data-cat="complements">Complements</a>
+  <a href="#/collections/objects" data-cat="objects">Objects</a>
+</nav>
+
+<main id="app"></main>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="logo-mark">swell</div>
+      <p>Curated furniture, complements and objects for everyday spaces &mdash; handmade pieces and reclaimed materials, from one storefront in the old town.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Visit</h4>
+      <p>Carrer Major, 30<br>07800 Ibiza, Spain</p>
+      <p>Tue&ndash;Sat, 10:00&ndash;20:00</p>
+    </div>
+    <div class="footer-col">
+      <h4>Collections</h4>
+      <a href="#/collections/furniture">Furniture</a>
+      <a href="#/collections/complements">Complements</a>
+      <a href="#/collections/objects">Objects</a>
+    </div>
+    <div class="footer-col">
+      <h4>Studio</h4>
+      <a href="#/limited">Limited</a>
+      <a href="#/projects">Projects</a>
+    </div>
+  </div>
+  <div class="footer-image"><img src="assets/storefront.jpg" alt="Swell Concept storefront on Carrer Major" loading="lazy"></div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Swell Concept</span>
+    <span>Prototype preview &mdash; for internal review only</span>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<div class="bag-scrim" id="bagScrim" hidden></div>
+<aside class="bag-panel" id="bagPanel" hidden>
+  <div class="bag-panel-head">
+    <h3>Your Bag</h3>
+    <button id="bagClose" aria-label="Close bag">&times;</button>
+  </div>
+  <div class="bag-items" id="bagItems"></div>
+  <p class="bag-empty" id="bagEmpty">Your bag is empty.</p>
+</aside>
+
+<script>
+(function(){
+  "use strict";
+
+  var PRODUCTS = {
+    "banco-spindale": {
+      name:"Banco Spindale", category:"furniture", price:912, img:"prod_bench_main.jpg",
+      thumbs:["prod_bench_main.jpg","prod_bench_thumb1.jpg","g_bench.jpg"],
+      desc:"La colecci&oacute;n Spindle encontr&oacute; su inspiraci&oacute;n en la tradicional rueca de hilar e incorpora radios perfectamente alineados en el respaldo posterior. Dondequiera que decida colocarlo, el banco Spindle en teca maciza es una pieza imponente. La teca recuperada ofrece un acabado verdaderamente &uacute;nico para cada art&iacute;culo: el origen de cada pieza de mobiliario acabada a mano lleva su propia historia en su material.",
+      measures:"150 x 35 cms"
+    },
+    "brutus-lounge-chair": {
+      name:"Brutus Lounge Chair", category:"furniture", price:1300, img:"p_brutus.jpg", limited:true,
+      desc:"Cast in a blackened bronze-toned resin, Brutus borrows its blunt planes and right angles from brutalist architecture. A single-seat sculpture as much as a place to sit.",
+      measures:"78 x 82 x 70 cms"
+    },
+    "meridienne-chaise-longue": {
+      name:"Meridienne Chaise Longue", category:"furniture", price:4360, img:"p_meridienne.jpg", limited:true,
+      desc:"Upholstered in deep aubergine mohair velvet, the Meridienne stretches the classic daybed silhouette long and low, with a single raised armrest for reading through the afternoon.",
+      measures:"165 x 75 x 80 cms"
+    },
+    "moon-stool": {
+      name:"Moon Stool", category:"furniture", price:395, img:"p_moonstool.jpg", limited:true,
+      desc:"A chrome tube frame in the manner of 1970s Italian seating, topped with a deep olive boucl&eacute; cushion &mdash; light enough to move room to room, sturdy enough to live anywhere.",
+      measures:"38 x 38 x 45 cms"
+    },
+    "scales-sideboard": {
+      name:"Scales Sideboard", category:"furniture", price:3750, img:"p_scales.jpg", limited:true,
+      desc:"Inlaid walnut diamonds run the length of this sideboard's doors, a pattern drawn from mid-century Scandinavian cabinetry. Two doors, one internal shelf, brass-capped legs.",
+      measures:"160 x 45 x 75 cms"
+    },
+    "leaning-mirror": {
+      name:"Leaning Ladder Mirror", category:"furniture", price:480, img:"g_room.jpg",
+      desc:"A blackened-steel ladder mirror leans rather than hangs, shown here with a mango-wood nightstand &mdash; a considered pairing for an entryway or bedroom corner.",
+      measures:"50 x 170 cms"
+    },
+    "cozy-sofa": {
+      name:"Cozy Sofa", category:"furniture", price:2890, img:"tile_sofas.jpg",
+      desc:"Deep-seated and upholstered in espresso brushed velvet &mdash; the kind of sofa built for an afternoon where nobody, and nothing, moves for three hours. Feather-down cushions, hardwood frame.",
+      measures:"220 x 95 x 85 cms"
+    },
+    "phantom-table": {
+      name:"Phantom Table", category:"furniture", price:610, img:"tile_table.jpg",
+      desc:"A side table turned from solid ash and finished in high-gloss black lacquer, set on a chromed steel base that all but disappears beneath it &mdash; hence the name.",
+      measures:"&Oslash; 45 x 55 cms"
+    },
+    "cushion-set-forest": {
+      name:"Raw Silk Cushion Set", category:"complements", price:78, img:"g_pillows_1.jpg",
+      desc:"Raw silk cushions in forest, teal and burgundy, each finished with a contrast linen welt. Sold as a set of three, feather-down inserts included.",
+      measures:"45 x 45 cms each"
+    },
+    "handwoven-pouf": {
+      name:"Handwoven Rope Pouf", category:"complements", price:245, img:"g_stool.jpg",
+      desc:"Hand-braided abaca rope over a steel frame, finished with a woven leather-look topper. Every pouf is slightly different &mdash; a mark of the weaver, not a flaw.",
+      measures:"&Oslash; 55 x 40 cms"
+    },
+    "ombre-linen-curtain": {
+      name:"Sage Ombr&eacute; Linen Curtain", category:"complements", price:142, img:"g_curtain.jpg",
+      desc:"Stonewashed linen, dip-dyed from sage to undyed white along a single panel. Hangs from a matte-black rod with brass rings, sold individually.",
+      measures:"140 x 260 cms"
+    },
+    "striped-wool-cushions": {
+      name:"Striped Wool Cushions", category:"complements", price:86, img:"g_pillows_2.jpg",
+      desc:"Heavy wool cushions banded in rust, black and grey, woven on the same looms Swell uses for its rugs. Feather-down inserts.",
+      measures:"50 x 50 cms"
+    },
+    "papelera-roller-max": {
+      name:"Papelera Roller Max", category:"objects", price:175, img:"o_papelera.jpg",
+      desc:"A fluted steel waste bin finished in matte graphite &mdash; the kind of object built well enough that you stop hiding it in a corner.",
+      measures:"&Oslash; 26 x 38 cms"
+    },
+    "tabla-tapas-l": {
+      name:"Tabla Tapas L", category:"objects", price:160, img:"o_tabla1.jpg",
+      desc:"One board, two woods &mdash; a live-edge walnut half spliced to a lighter oak half, strung with jute for hanging between uses.",
+      measures:"45 x 18 cms"
+    },
+    "frost-candleholder": {
+      name:"Frost Candleholder", category:"objects", price:30, img:"o_frost.jpg",
+      desc:"Etched glass candleholders in a graduated set of five, frosted to soften the flame to a low amber glow.",
+      measures:"Set of 5, 6&ndash;14 cms"
+    },
+    "meridian-candle": {
+      name:"Meridian Candle", category:"objects", price:58, img:"o_tabla2.jpg",
+      desc:"Hand-poured soy wax in a matte black vessel, scented in fig and vetiver &mdash; roughly 45 hours of burn time.",
+      measures:"9 x 11 cms"
+    },
+    "pause-water-glass": {
+      name:"Pause Water Glass", category:"objects", price:36, img:"o_glass.jpg",
+      desc:"Blown glass goblets on a ribbed amber stem, finished in a soft topaz tint. Sold as a pair; no two are perfectly identical.",
+      measures:"Set of 2"
+    },
+    "saintier-bowl": {
+      name:"Saintier Bowl", category:"objects", price:95, img:"tile_objects2.jpg",
+      desc:"Spun steel, patinated to a deep blue-black, balanced on a conical foot so shallow it looks like it shouldn't stand. It does.",
+      measures:"&Oslash; 34 x 9 cms"
+    },
+    "antique-vase-pair": {
+      name:"Antique Vase Pair", category:"objects", price:340, img:"tile_antiques.jpg",
+      desc:"A pair of reclaimed stoneware vases, each with its own glaze history and hairline crazing &mdash; genuinely antique, genuinely one of a kind.",
+      measures:"35&ndash;48 cms tall, varies"
+    }
+  };
+
+  var CAT_LABEL = { furniture:"Furniture", complements:"Complements", objects:"Objects" };
+
+  function money(n){
+    return "&euro; " + n.toLocaleString("es-ES");
+  }
+
+  function productsIn(cat){
+    return Object.keys(PRODUCTS).filter(function(k){ return PRODUCTS[k].category === cat; });
+  }
+
+  function productCard(slug){
+    var p = PRODUCTS[slug];
+    return '' +
+      '<article class="p-card">' +
+        '<a href="#/product/'+slug+'" class="p-card-media">' +
+          '<img src="assets/'+p.img+'" alt="'+p.name+'" loading="lazy">' +
+          '<span class="p-dots"><i></i><i></i><i></i></span>' +
+        '</a>' +
+        '<div class="p-card-info">' +
+          '<a href="#/product/'+slug+'" class="p-card-name">'+p.name+'</a>' +
+          '<button class="p-add" data-add="'+slug+'" aria-label="Add '+p.name+' to bag">+</button>' +
+        '</div>' +
+        '<div class="p-card-price">'+money(p.price)+'</div>' +
+      '</article>';
+  }
+
+  /* ---------------- Views ---------------- */
+
+  function viewHome(){
+    var featured = [
+      {img:"tile_seating.jpg", tag:"Seating", slug:"moon-stool"},
+      {img:"tile_objects2.jpg", tag:"Objects", slug:"saintier-bowl"},
+      {img:"tile_antiques.jpg", tag:"Antiques", slug:"antique-vase-pair"},
+      {img:"tile_sofas.jpg", tag:"Sofas", slug:"cozy-sofa"},
+      {img:"tile_plate.jpg", tag:"Complements", slug:"meridian-candle"},
+      {img:"tile_table.jpg", tag:"Tables", slug:"phantom-table"}
+    ];
+    return '' +
+      '<div class="hero">' +
+        '<img src="assets/home_hero.jpg" alt="Swell Concept showroom &mdash; curated pieces for everyday spaces">' +
+      '</div>' +
+      '<div class="wrap section">' +
+        '<div class="cat-grid">' +
+          '<a class="cat-tile" href="#/collections/furniture"><img src="assets/cat_furniture.jpg" alt="Furniture"><span>Furniture</span></a>' +
+          '<a class="cat-tile" href="#/collections/complements"><img src="assets/cat_complements.jpg" alt="Complements"><span>Complements</span></a>' +
+          '<a class="cat-tile" href="#/collections/objects"><img src="assets/cat_objects.jpg" alt="Objects"><span>Objects</span></a>' +
+        '</div>' +
+      '</div>' +
+      '<div class="wrap section" style="padding-top:0">' +
+        '<div class="section-head"><h2>This week&rsquo;s picks</h2><a class="view-all" href="#/collections/furniture">View all</a></div>' +
+        '<div class="feature-grid">' +
+          featured.map(function(f){
+            var p = PRODUCTS[f.slug];
+            return '<a class="feature-tile" href="#/product/'+f.slug+'">' +
+              '<img src="assets/'+f.img+'" alt="'+p.name+'">' +
+              '<span class="feature-tag">'+f.tag+'</span>' +
+              '<span class="feature-name">'+p.name+'<span class="plus">+</span></span>' +
+            '</a>';
+          }).join('') +
+        '</div>' +
+      '</div>';
+  }
+
+  function viewCollections(cat){
+    if(!CAT_LABEL[cat]) cat = "furniture";
+    var items = productsIn(cat);
+    var intro = "";
+    if(cat === "complements"){
+      var mosaicImgs = [
+        {img:"g_pillows_1.jpg", slug:"cushion-set-forest"},
+        {img:"g_stool.jpg", slug:"handwoven-pouf"},
+        {img:"g_curtain.jpg", slug:"ombre-linen-curtain"},
+        {img:"g_bench.jpg", slug:"banco-spindale"},
+        {img:"g_room.jpg", slug:"leaning-mirror"},
+        {img:"g_pillows_2.jpg", slug:"striped-wool-cushions"}
+      ];
+      intro = '<div class="mosaic">' + mosaicImgs.map(function(m){
+        return '<a href="#/product/'+m.slug+'"><img src="assets/'+m.img+'" alt="" loading="lazy"></a>';
+      }).join('') + '</div>';
+    }
+    return intro +
+      '<div class="wrap section">' +
+        '<div class="section-head"><h2>'+CAT_LABEL[cat]+'</h2><span class="eyebrow">'+items.length+' pieces</span></div>' +
+        '<div class="p-grid">' + items.map(productCard).join('') + '</div>' +
+      '</div>';
+  }
+
+  function viewProduct(slug){
+    var p = PRODUCTS[slug];
+    if(!p){ return '<div class="wrap section"><p>Product not found.</p><a class="back-link" href="#/">&larr; Back home</a></div>'; }
+    var thumbs = p.thumbs || [p.img];
+    return '' +
+      '<div class="wrap section">' +
+        '<a class="back-link" href="#/collections/'+p.category+'">&larr; '+CAT_LABEL[p.category]+'</a>' +
+        '<div class="p-detail">' +
+          '<div class="p-gallery">' +
+            '<div class="p-gallery-main"><img id="pMainImg" src="assets/'+p.img+'" alt="'+p.name+'"></div>' +
+            (thumbs.length > 1 ? '<div class="p-thumbs">' + thumbs.map(function(t,i){
+              return '<button class="p-thumb'+(i===0?' active':'')+'" data-thumb="'+t+'" aria-label="View image '+(i+1)+'"><img src="assets/'+t+'" alt=""></button>';
+            }).join('') + '</div>' : '') +
+          '</div>' +
+          '<div class="p-detail-info">' +
+            '<span class="eyebrow">'+CAT_LABEL[p.category]+'</span>' +
+            '<h1>'+p.name+'</h1>' +
+            '<div class="p-price">'+money(p.price)+'</div>' +
+            '<hr class="p-rule">' +
+            '<p class="p-desc">'+p.desc+'</p>' +
+            '<div class="p-meta"><h4>Medidas</h4><p>'+p.measures+'</p></div>' +
+            '<div class="p-avail">' +
+              '<span class="p-avail-status">Disponible</span>' +
+              '<button class="buy-btn" data-add="'+slug+'">Comprar <span>+</span></button>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+  }
+
+  function viewLimited(){
+    var items = Object.keys(PRODUCTS).filter(function(k){ return PRODUCTS[k].limited; });
+    return '' +
+      '<div class="limited-hero"><img src="assets/hero_limited.jpg" alt="Limited edition pieces, styled"></div>' +
+      '<div class="limited-strip">One-of-a-kind pieces &middot; while stocks last</div>' +
+      '<div class="wrap section">' +
+        '<div class="section-head"><h2>Limited</h2><a class="view-all" href="#/collections/furniture">View all</a></div>' +
+        '<div class="p-grid">' + items.map(productCard).join('') + '</div>' +
+      '</div>';
+  }
+
+  function viewProjects(){
+    return '' +
+      '<div class="wrap section">' +
+        '<div class="about-grid">' +
+          '<img src="assets/storefront.jpg" alt="Swell Concept storefront">' +
+          '<div class="about-copy">' +
+            '<span class="eyebrow">Projects &amp; interiors</span>' +
+            '<h2>Every piece starts in a room, not a catalogue.</h2>' +
+            '<p>Swell Concept works with a small roster of architects and interior designers on full-space projects &mdash; sourcing reclaimed and handmade furniture, complements and objects piece by piece rather than pulling from a single collection.</p>' +
+            '<p>Our storefront on Carrer Major doubles as a working studio: most pieces you see on the floor were chosen for a project first, and made available after.</p>' +
+            '<p>To discuss a project, visit us in store or write to <a href="mailto:hola@swellconcept.com" style="border-bottom:1px solid var(--line-strong)">hola@swellconcept.com</a>.</p>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+  }
+
+  /* ---------------- Router ---------------- */
+
+  var app = document.getElementById("app");
+  var subnav = document.getElementById("subnav");
+  var mainNav = document.getElementById("mainNav");
+
+  function setActiveNav(key, cat){
+    Array.prototype.forEach.call(mainNav.querySelectorAll("a"), function(a){
+      a.classList.toggle("active", a.getAttribute("data-nav") === key);
+    });
+    Array.prototype.forEach.call(subnav.querySelectorAll("a"), function(a){
+      a.classList.toggle("active", a.getAttribute("data-cat") === cat);
+    });
+  }
+
+  function route(){
+    var hash = location.hash.replace(/^#/, "") || "/";
+    var parts = hash.split("/").filter(Boolean);
+    var html = "";
+    subnav.hidden = true;
+
+    if(parts.length === 0){
+      html = viewHome();
+      setActiveNav("", "");
+    } else if(parts[0] === "collections"){
+      var cat = parts[1] || "furniture";
+      html = viewCollections(cat);
+      subnav.hidden = false;
+      setActiveNav("collections", cat);
+    } else if(parts[0] === "product"){
+      html = viewProduct(parts[1]);
+      var p = PRODUCTS[parts[1]];
+      if(p){ subnav.hidden = false; }
+      setActiveNav("collections", p ? p.category : "");
+    } else if(parts[0] === "limited"){
+      html = viewLimited();
+      setActiveNav("limited", "");
+    } else if(parts[0] === "projects"){
+      html = viewProjects();
+      setActiveNav("projects", "");
+    } else {
+      html = viewHome();
+      setActiveNav("", "");
+    }
+
+    app.innerHTML = html;
+    window.scrollTo(0,0);
+    closeMobileNav();
+    wireProductThumbs();
+  }
+
+  window.addEventListener("hashchange", route);
+
+  /* ---------------- Mobile nav ---------------- */
+
+  var hamburgerBtn = document.getElementById("hamburgerBtn");
+  function closeMobileNav(){
+    mainNav.classList.remove("open");
+    hamburgerBtn.setAttribute("aria-expanded", "false");
+  }
+  hamburgerBtn.addEventListener("click", function(){
+    var open = mainNav.classList.toggle("open");
+    hamburgerBtn.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+
+  /* ---------------- Product gallery thumbs ---------------- */
+
+  function wireProductThumbs(){
+    var thumbs = document.querySelectorAll(".p-thumb");
+    var mainImg = document.getElementById("pMainImg");
+    if(!thumbs.length || !mainImg) return;
+    Array.prototype.forEach.call(thumbs, function(t){
+      t.addEventListener("click", function(){
+        Array.prototype.forEach.call(thumbs, function(x){ x.classList.remove("active"); });
+        t.classList.add("active");
+        mainImg.src = "assets/" + t.getAttribute("data-thumb");
+      });
+    });
+  }
+
+  /* ---------------- Bag ---------------- */
+
+  var bag = [];
+  var bagBtn = document.getElementById("bagBtn");
+  var bagPanel = document.getElementById("bagPanel");
+  var bagScrim = document.getElementById("bagScrim");
+  var bagClose = document.getElementById("bagClose");
+  var bagItemsEl = document.getElementById("bagItems");
+  var bagEmptyEl = document.getElementById("bagEmpty");
+  var bagCountEl = document.getElementById("bagCount");
+  var toastEl = document.getElementById("toast");
+  var toastTimer = null;
+
+  function renderBag(){
+    bagCountEl.hidden = bag.length === 0;
+    bagCountEl.textContent = bag.length;
+    bagEmptyEl.hidden = bag.length > 0;
+    bagItemsEl.innerHTML = bag.map(function(slug, i){
+      var p = PRODUCTS[slug];
+      return '<div class="bag-line">' +
+        '<img src="assets/'+p.img+'" alt="">' +
+        '<div style="flex:1"><div class="bag-line-name">'+p.name+'</div><div class="bag-line-price">'+money(p.price)+'</div></div>' +
+        '<button class="bag-remove" data-remove="'+i+'" aria-label="Remove">&times;</button>' +
+      '</div>';
+    }).join('');
+  }
+
+  function openBag(){ bagPanel.hidden = false; bagScrim.hidden = false; }
+  function closeBag(){ bagPanel.hidden = true; bagScrim.hidden = true; }
+
+  bagBtn.addEventListener("click", openBag);
+  bagClose.addEventListener("click", closeBag);
+  bagScrim.addEventListener("click", closeBag);
+
+  bagItemsEl.addEventListener("click", function(e){
+    var btn = e.target.closest("[data-remove]");
+    if(!btn) return;
+    bag.splice(Number(btn.getAttribute("data-remove")), 1);
+    renderBag();
+  });
+
+  function showToast(msg){
+    toastEl.textContent = msg;
+    toastEl.hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toastEl.hidden = true; }, 2200);
+  }
+
+  document.addEventListener("click", function(e){
+    var btn = e.target.closest("[data-add]");
+    if(!btn) return;
+    e.preventDefault();
+    var slug = btn.getAttribute("data-add");
+    var p = PRODUCTS[slug];
+    if(!p) return;
+    bag.push(slug);
+    renderBag();
+    showToast(p.name + " added to your bag");
+  });
+
+  /* ---------------- Init ---------------- */
+
+  renderBag();
+  route();
+})();
+</script>
