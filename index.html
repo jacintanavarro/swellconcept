@@ -50,7 +50,7 @@
     display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:16px;
   }
   .logo{ display:flex; flex-direction:column; line-height:1; gap:3px; justify-self:start;}
-  .logo-mark{ font-family:var(--serif); font-style:italic; font-weight:500; font-size:1.7rem; color:var(--ink);}
+  .logo-mark{ font-family:var(--serif); font-weight:500; font-size:1.7rem; color:var(--ink);}
   .logo-sub{ font-size:0.58rem; letter-spacing:0.32em; color:var(--ink-soft); text-transform:uppercase;}
   .main-nav{ display:flex; gap:clamp(20px,3vw,44px); justify-self:center;}
   .main-nav a{
@@ -182,7 +182,7 @@
     display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
     background:linear-gradient(to top, rgba(10,12,9,0.6), transparent 70%);
   }
-  .footer-overlay .logo-mark{ font-size:1.3rem; color:#fff; font-style:italic; font-family:var(--serif); }
+  .footer-overlay .logo-mark{ font-size:1.3rem; color:#fff; font-family:var(--serif); }
   .footer-overlay span.copyright{ font-size:0.74rem; letter-spacing:0.04em; color:#fff; }
 
   /* ---------- Toast ---------- */
@@ -516,8 +516,8 @@
   function viewLimited(){
     var items = Object.keys(PRODUCTS).filter(function(k){ return PRODUCTS[k].limited; });
     return '' +
-      '<div class="limited-hero"><img src="assets/hero_limited.jpg" alt="Limited edition pieces, styled"></div>' +
-      '<div class="wrap section">' +
+      '<div class="limited-hero"><img src="assets/hero_limited.jpg" alt="Unique selected pieces from all over"></div>' +
+      '<div class="wrap section" style="padding-top:clamp(20px,3vw,32px)">' +
         '<div class="p-grid">' + items.map(productCard).join('') + '</div>' +
         '<div class="view-all-row"><a class="view-all" href="#/collections/furniture">View all</a></div>' +
       '</div>';
