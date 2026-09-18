@@ -4,18 +4,18 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500;1,9..144,600&family=Jost:ital,wght@0,400;0,500;0,600;1,400&display=swap">
 <style>
   :root{
-    --bg:#f6f3ec;
-    --bg-alt:#eee8da;
-    --surface:#fffdf8;
-    --ink:#26281f;
-    --ink-soft:#6f6c5c;
-    --ink-faint:#a29d8a;
-    --accent:#4c5f43;
-    --accent-soft:#7c9268;
-    --on-accent:#f6f3ec;
-    --line:#ddd6c3;
-    --line-strong:#c7bd9f;
-    --shadow: 0 24px 48px -28px rgba(38,40,31,0.45);
+    --bg:#eae7df;
+    --bg-alt:#ded9c9;
+    --surface:#f3f1ea;
+    --ink:#1c2e2a;
+    --ink-soft:#5b6b64;
+    --ink-faint:#8b9691;
+    --accent:#1c2e2a;
+    --accent-soft:#3c5048;
+    --on-accent:#eae7df;
+    --line:#d5d0bf;
+    --line-strong:#bfb89f;
+    --shadow: 0 24px 48px -28px rgba(28,46,42,0.45);
     --serif: 'Ogg', 'Fraunces', 'Iowan Old Style', Georgia, serif;
     --serif-ui: 'Century Gothic', 'Jost', 'Futura', 'Avenir Next', sans-serif;
     --maxw: 1360px;
@@ -23,18 +23,18 @@
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
-      --bg:#1b1c16; --bg-alt:#222319; --surface:#25261d;
-      --ink:#f1eee2; --ink-soft:#b2af9d; --ink-faint:#7d7a68;
-      --accent:#9db788; --accent-soft:#7fa06c; --on-accent:#14150f;
-      --line:#3b3c2f; --line-strong:#4c4d3c;
+      --bg:#12201d; --bg-alt:#0e1917; --surface:#182823;
+      --ink:#eae7df; --ink-soft:#a9b3ae; --ink-faint:#6c7873;
+      --accent:#8fae9f; --accent-soft:#6f9082; --on-accent:#12201d;
+      --line:#28382f; --line-strong:#38493f;
       --shadow: 0 24px 48px -28px rgba(0,0,0,0.7);
     }
   }
   :root[data-theme="dark"]{
-    --bg:#1b1c16; --bg-alt:#222319; --surface:#25261d;
-    --ink:#f1eee2; --ink-soft:#b2af9d; --ink-faint:#7d7a68;
-    --accent:#9db788; --accent-soft:#7fa06c; --on-accent:#14150f;
-    --line:#3b3c2f; --line-strong:#4c4d3c;
+    --bg:#12201d; --bg-alt:#0e1917; --surface:#182823;
+    --ink:#eae7df; --ink-soft:#a9b3ae; --ink-faint:#6c7873;
+    --accent:#8fae9f; --accent-soft:#6f9082; --on-accent:#12201d;
+    --line:#28382f; --line-strong:#38493f;
     --shadow: 0 24px 48px -28px rgba(0,0,0,0.7);
   }
 
@@ -97,16 +97,12 @@
   main{ display:block; }
   .wrap{ max-width:var(--maxw); margin:0 auto; padding-inline:var(--gutter); }
   .section{ padding-block:clamp(40px,6vw,88px); }
-  .section-head{ display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:clamp(20px,3vw,36px); flex-wrap:wrap;}
-  .section-head h2{ font-size:clamp(1.5rem,2.6vw,2.1rem); }
   .view-all{ font-size:0.78rem; letter-spacing:0.12em; text-transform:uppercase; border-bottom:1px solid var(--ink); padding-bottom:2px; }
+  .view-all-row{ text-align:center; margin-top:clamp(28px,4vw,44px); }
 
   /* ---------- Hero ---------- */
   .hero{ position:relative; }
   .hero img{ width:100%; height:clamp(300px,52vw,560px); object-fit:cover; }
-  .hero-caption{ max-width:var(--maxw); margin:0 auto; padding:22px var(--gutter) 0; }
-  .hero-caption h1{ font-size:clamp(1.8rem,4vw,3rem); font-style:italic; font-weight:500; max-width:16ch;}
-  .hero-caption p{ color:var(--ink-soft); margin-top:10px; max-width:46ch; font-size:1.02rem;}
 
   /* ---------- Category tiles (home) ---------- */
   .cat-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(10px,2vw,20px); }
@@ -190,7 +186,6 @@
   /* ---------- Limited hero ---------- */
   .limited-hero{ position:relative; }
   .limited-hero img{ width:100%; height:clamp(260px,44vw,480px); object-fit:cover; }
-  .limited-strip{ background:var(--accent); color:var(--on-accent); text-align:center; padding:10px; font-size:0.76rem; letter-spacing:0.16em; text-transform:uppercase;}
 
   /* ---------- Projects / about ---------- */
   .about-grid{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(28px,5vw,64px); align-items:center; }
@@ -199,23 +194,16 @@
   .about-copy h2{ font-size:clamp(1.6rem,3vw,2.3rem); }
 
   /* ---------- Footer ---------- */
-  .site-footer{ border-top:1px solid var(--line); background:var(--bg-alt); margin-top:40px; }
-  .footer-top{
-    max-width:var(--maxw); margin:0 auto; padding:56px var(--gutter) 40px;
-    display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:36px;
+  .site-footer{ margin-top:40px; }
+  .footer-media{ position:relative; }
+  .footer-media img{ width:100%; height:clamp(220px,32vw,420px); object-fit:cover; }
+  .footer-overlay{
+    position:absolute; left:0; right:0; bottom:0; padding:20px var(--gutter);
+    display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+    background:linear-gradient(to top, rgba(10,12,9,0.6), transparent 70%);
   }
-  .footer-brand .logo-mark{ font-size:1.5rem; }
-  .footer-brand p{ color:var(--ink-soft); margin-top:12px; max-width:34ch; font-size:0.92rem;}
-  .footer-col h4{ font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-soft); font-weight:500; margin-bottom:12px; font-family:var(--serif-ui);}
-  .footer-col p{ font-size:0.88rem; color:var(--ink-soft); margin-bottom:8px;}
-  .footer-col a{ display:block; font-size:0.88rem; color:var(--ink-soft); margin-bottom:8px; }
-  .footer-col a:hover{ color:var(--ink); }
-  .footer-image img{ width:100%; height:clamp(160px,26vw,320px); object-fit:cover; }
-  .footer-bottom{
-    max-width:var(--maxw); margin:0 auto; padding:18px var(--gutter);
-    display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
-    font-size:0.74rem; color:var(--ink-faint); letter-spacing:0.04em;
-  }
+  .footer-overlay .logo-mark{ font-size:1.3rem; color:#fff; font-style:italic; font-family:var(--serif); }
+  .footer-overlay span.copyright{ font-size:0.74rem; letter-spacing:0.04em; color:#fff; }
 
   /* ---------- Toast ---------- */
   .toast{
@@ -307,32 +295,12 @@
 <main id="app"></main>
 
 <footer class="site-footer">
-  <div class="footer-top">
-    <div class="footer-brand">
-      <div class="logo-mark">swell</div>
-      <p>Curated furniture, complements and objects for everyday spaces &mdash; handmade pieces and reclaimed materials, from one storefront in the old town.</p>
+  <div class="footer-media">
+    <img src="assets/storefront.jpg" alt="Swell Concept storefront" loading="lazy">
+    <div class="footer-overlay">
+      <span class="logo-mark">swell</span>
+      <span class="copyright">&copy; Swell Concept</span>
     </div>
-    <div class="footer-col">
-      <h4>Visit</h4>
-      <p>Carrer Major, 30<br>07800 Ibiza, Spain</p>
-      <p>Tue&ndash;Sat, 10:00&ndash;20:00</p>
-    </div>
-    <div class="footer-col">
-      <h4>Collections</h4>
-      <a href="#/collections/furniture">Furniture</a>
-      <a href="#/collections/complements">Complements</a>
-      <a href="#/collections/objects">Objects</a>
-    </div>
-    <div class="footer-col">
-      <h4>Studio</h4>
-      <a href="#/limited">Limited</a>
-      <a href="#/projects">Projects</a>
-    </div>
-  </div>
-  <div class="footer-image"><img src="assets/storefront.jpg" alt="Swell Concept storefront on Carrer Major" loading="lazy"></div>
-  <div class="footer-bottom">
-    <span>&copy; 2026 Swell Concept</span>
-    <span>Prototype preview &mdash; for internal review only</span>
   </div>
 </footer>
 
@@ -499,7 +467,6 @@
         '</div>' +
       '</div>' +
       '<div class="wrap section" style="padding-top:0">' +
-        '<div class="section-head"><h2>This week&rsquo;s picks</h2><a class="view-all" href="#/collections/furniture">View all</a></div>' +
         '<div class="feature-grid">' +
           featured.map(function(f){
             var p = PRODUCTS[f.slug];
@@ -532,8 +499,8 @@
     }
     return intro +
       '<div class="wrap section">' +
-        '<div class="section-head"><h2>'+CAT_LABEL[cat]+'</h2><span class="eyebrow">'+items.length+' pieces</span></div>' +
         '<div class="p-grid">' + items.map(productCard).join('') + '</div>' +
+        '<div class="view-all-row"><a class="view-all" href="#/collections/'+cat+'">View all</a></div>' +
       '</div>';
   }
 
@@ -543,7 +510,6 @@
     var thumbs = p.thumbs || [p.img];
     return '' +
       '<div class="wrap section">' +
-        '<a class="back-link" href="#/collections/'+p.category+'">&larr; '+CAT_LABEL[p.category]+'</a>' +
         '<div class="p-detail">' +
           '<div class="p-gallery">' +
             '<div class="p-gallery-main"><img id="pMainImg" src="assets/'+p.img+'" alt="'+p.name+'"></div>' +
@@ -552,7 +518,6 @@
             }).join('') + '</div>' : '') +
           '</div>' +
           '<div class="p-detail-info">' +
-            '<span class="eyebrow">'+CAT_LABEL[p.category]+'</span>' +
             '<h1>'+p.name+'</h1>' +
             '<div class="p-price">'+money(p.price)+'</div>' +
             '<hr class="p-rule">' +
@@ -571,10 +536,9 @@
     var items = Object.keys(PRODUCTS).filter(function(k){ return PRODUCTS[k].limited; });
     return '' +
       '<div class="limited-hero"><img src="assets/hero_limited.jpg" alt="Limited edition pieces, styled"></div>' +
-      '<div class="limited-strip">One-of-a-kind pieces &middot; while stocks last</div>' +
       '<div class="wrap section">' +
-        '<div class="section-head"><h2>Limited</h2><a class="view-all" href="#/collections/furniture">View all</a></div>' +
         '<div class="p-grid">' + items.map(productCard).join('') + '</div>' +
+        '<div class="view-all-row"><a class="view-all" href="#/collections/furniture">View all</a></div>' +
       '</div>';
   }
 
